@@ -53,5 +53,12 @@ class AdminController extends \Phalcon\Mvc\Controller
     $post = Posts::findFirst((int)$postID);
     $this->view->setVar('post', $post);
   }
+
+  public function deleteAction($postID){
+    if(!$postID) throw new InvalidArgumentException('Invalid or InExistent ID');
+
+    $post = Posts::findFirst((int)$postID);
+    $this->view->setVar('post', $post);
+  }
 }
 

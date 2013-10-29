@@ -54,10 +54,20 @@ class AdminController extends \Phalcon\Mvc\Controller
     $this->view->setVar('post', $post);
   }
 
-  public function deleteAction($postID){
+  public function deleteAction($postID) {
     if(!$postID) throw new InvalidArgumentException('Invalid or InExistent ID');
 
     $post = Posts::findFirst((int)$postID);
+
+    $this->view->setVar('success', false);
+
+    if ($this->request->isPost() === true) {
+      if ($post->delete()) {
+        $this->view->setVar('success', true);
+        //$this->view->disable();
+      }
+    }
+
     $this->view->setVar('post', $post);
   }
 }
